@@ -7,6 +7,8 @@ from .models import Task
 from rest_framework import viewsets
 from .serializers import TaskSerializer, UserSerializer
 from .ownpermissions import ProfilePermission
+from rest_framework.decorators import api_view
+from django.http import JsonResponse
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,3 +31,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    @api_view(['GET'])
+    def test(request):
+        return JsonResponse(data={"msg": "pass"}, status=200)
